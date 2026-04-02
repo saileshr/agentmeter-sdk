@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from agentmeter.types import LLMEvent
+from agentledger.types import LLMEvent
 
 
 class MemoryExporter:

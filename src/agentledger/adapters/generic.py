@@ -3,7 +3,7 @@
 Use this when your framework doesn't have a dedicated adapter.
 
 Usage:
-    from agentmeter.adapters.generic import track_llm_call
+    from agentledger.adapters.generic import track_llm_call
 
     with track_llm_call(provider="openai", model="gpt-4o") as call:
         response = my_custom_llm_call(...)
@@ -18,8 +18,8 @@ from collections.abc import Iterator
 from contextlib import contextmanager
 from dataclasses import dataclass, field
 
-from agentmeter.tracker import get_tracker
-from agentmeter.types import LLMEvent, TokenUsage
+from agentledger.tracker import get_tracker
+from agentledger.types import LLMEvent, TokenUsage
 
 
 @dataclass

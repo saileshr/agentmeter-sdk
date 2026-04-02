@@ -8,13 +8,13 @@ from typing import Any
 
 import pytest
 
-from agentmeter.adapters.openai import (
+from agentledger.adapters.openai import (
     _extract_tool_calls,
     _extract_usage,
     track_openai,
 )
-from agentmeter.exporters.memory import MemoryExporter
-from agentmeter.tracker import configure, reset
+from agentledger.exporters.memory import MemoryExporter
+from agentledger.tracker import configure, reset
 
 # --- Mock OpenAI objects (match real SDK's attribute shapes) ---
 

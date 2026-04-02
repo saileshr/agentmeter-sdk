@@ -10,7 +10,7 @@ import sys
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from agentmeter.types import LLMEvent
+    from agentledger.types import LLMEvent
 
 
 class ConsoleExporter:

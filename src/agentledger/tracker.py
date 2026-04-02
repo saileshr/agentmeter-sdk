@@ -1,4 +1,4 @@
-"""Core tracker — the central coordination point for AgentMeter.
+"""Core tracker — the central coordination point for AgentLedger.
 
 Records LLM events, enriches them with cost data, and sends them to exporters.
 Synchronous and simple — no background threads, no batching.
@@ -9,13 +9,13 @@ from __future__ import annotations
 import logging
 from typing import TYPE_CHECKING
 
-from agentmeter.config import AgentMeterConfig
-from agentmeter.cost import CostRegistry
+from agentledger.config import AgentLedgerConfig
+from agentledger.cost import CostRegistry
 
 if TYPE_CHECKING:
-    from agentmeter.types import LLMEvent
+    from agentledger.types import LLMEvent
 
-logger = logging.getLogger("agentmeter")
+logger = logging.getLogger("agentledger")
 
 # Module-level singleton
 _tracker: Tracker | None = None
@@ -24,8 +24,8 @@ _tracker: Tracker | None = None
 class Tracker:
     """Records LLM events, enriches with cost, exports immediately."""
 
-    def __init__(self, config: AgentMeterConfig | None = None) -> None:
-        self.config = config or AgentMeterConfig()
+    def __init__(self, config: AgentLedgerConfig | None = None) -> None:
+        self.config = config or AgentLedgerConfig()
         self.cost_registry = CostRegistry()
         self._exporters = self.config.exporters
 
@@ -56,7 +56,7 @@ class Tracker:
             try:
                 exporter.export([event])
             except Exception:
-                logger.exception("agentmeter: exporter %s failed", type(exporter).__name__)
+                logger.exception("agentledger: exporter %s failed", type(exporter).__name__)
 
         return event
 
@@ -67,18 +67,18 @@ class Tracker:
                 exporter.shutdown()
             except Exception:
                 logger.exception(
-                    "agentmeter: exporter %s shutdown failed", type(exporter).__name__
+                    "agentledger: exporter %s shutdown failed", type(exporter).__name__
                 )
 
 
 def get_tracker(**kwargs: object) -> Tracker:
     """Get or create the global tracker singleton.
 
-    Keyword arguments are passed to AgentMeterConfig if creating a new tracker.
+    Keyword arguments are passed to AgentLedgerConfig if creating a new tracker.
     """
     global _tracker
     if _tracker is None:
-        config = AgentMeterConfig(**kwargs)  # type: ignore[arg-type]
+        config = AgentLedgerConfig(**kwargs)  # type: ignore[arg-type]
         _tracker = Tracker(config)
     return _tracker
 
@@ -91,7 +91,7 @@ def configure(**kwargs: object) -> Tracker:
     global _tracker
     if _tracker is not None:
         _tracker.shutdown()
-    config = AgentMeterConfig(**kwargs)  # type: ignore[arg-type]
+    config = AgentLedgerConfig(**kwargs)  # type: ignore[arg-type]
     _tracker = Tracker(config)
     return _tracker
 

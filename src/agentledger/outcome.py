@@ -4,7 +4,7 @@ This is the key differentiator: not just "how much did this cost?"
 but "what was the business value per dollar spent?"
 
 Usage:
-    from agentmeter import record_outcome
+    from agentledger import record_outcome
 
     record_outcome(
         run_id="run-123",
@@ -18,8 +18,8 @@ from __future__ import annotations
 
 from typing import Any
 
-from agentmeter.tracker import get_tracker
-from agentmeter.types import LLMEvent, Outcome
+from agentledger.tracker import get_tracker
+from agentledger.types import LLMEvent, Outcome
 
 
 def record_outcome(

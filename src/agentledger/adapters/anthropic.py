@@ -4,7 +4,7 @@ Wraps an Anthropic client to automatically track token usage and costs
 for all message creation calls.
 
 Usage:
-    from agentmeter import track_anthropic
+    from agentledger import track_anthropic
     import anthropic
 
     client = track_anthropic(anthropic.Anthropic(), project="my-agent")
@@ -17,8 +17,8 @@ from __future__ import annotations
 import time
 from typing import Any
 
-from agentmeter.tracker import get_tracker
-from agentmeter.types import LLMEvent, TokenUsage
+from agentledger.tracker import get_tracker
+from agentledger.types import LLMEvent, TokenUsage
 
 
 def _extract_usage(response: Any) -> TokenUsage:
@@ -137,7 +137,7 @@ def track_anthropic(
 
     Example:
         import anthropic
-        from agentmeter import track_anthropic
+        from agentledger import track_anthropic
 
         client = track_anthropic(anthropic.Anthropic(), project="my-agent")
         response = client.messages.create(

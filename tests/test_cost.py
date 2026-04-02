@@ -1,4 +1,4 @@
-"""Tests for agentmeter.cost — cost registry and calculation."""
+"""Tests for agentledger.cost — cost registry and calculation."""
 
 import json
 import logging
@@ -7,8 +7,8 @@ from threading import Thread
 
 import pytest
 
-from agentmeter.cost import CostRegistry, ModelPricing, _normalize_model
-from agentmeter.types import CostBreakdown, TokenUsage
+from agentledger.cost import CostRegistry, ModelPricing, _normalize_model
+from agentledger.types import CostBreakdown, TokenUsage
 
 
 class TestNormalizeModel:
@@ -64,7 +64,7 @@ class TestCostRegistry:
     def test_unknown_model_logs_debug(self, caplog):
         registry = CostRegistry()
         tokens = TokenUsage(input_tokens=100)
-        with caplog.at_level(logging.DEBUG, logger="agentmeter"):
+        with caplog.at_level(logging.DEBUG, logger="agentledger"):
             registry.calculate("openai", "fake-model", tokens)
         assert "unknown model" in caplog.text
         assert "fake-model" in caplog.text

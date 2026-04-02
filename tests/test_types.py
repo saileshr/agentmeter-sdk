@@ -1,10 +1,10 @@
-"""Tests for agentmeter.types — core data model."""
+"""Tests for agentledger.types — core data model."""
 
 import json
 
 import pytest
 
-from agentmeter.types import CostBreakdown, LLMEvent, Outcome, TokenUsage
+from agentledger.types import CostBreakdown, LLMEvent, Outcome, TokenUsage
 
 
 class TestTokenUsage:
