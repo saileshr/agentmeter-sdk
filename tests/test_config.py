@@ -1,6 +1,5 @@
 """Tests for agentmeter.config."""
 
-import os
 
 from agentmeter.config import AgentMeterConfig
 from agentmeter.exporters.console import ConsoleExporter

@@ -14,8 +14,8 @@ from __future__ import annotations
 import json
 import logging
 import re
-import urllib.request
 import urllib.error
+import urllib.request
 from dataclasses import dataclass
 from typing import Any
 
@@ -251,10 +251,7 @@ class CostRegistry:
             provider = provider_map.get(litellm_provider, litellm_provider)
 
             # Extract model name: strip "provider/" prefix if present
-            if "/" in model_key:
-                model_name = model_key.split("/", 1)[1]
-            else:
-                model_name = model_key
+            model_name = model_key.split("/", 1)[1] if "/" in model_key else model_key
 
             # Convert per-token to per-1K-token
             pricing = ModelPricing(

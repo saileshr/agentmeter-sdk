@@ -6,6 +6,8 @@ No real OpenAI SDK needed — we mock the client and response shapes.
 from dataclasses import dataclass, field
 from typing import Any
 
+import pytest
+
 from agentmeter.adapters.openai import (
     _extract_tool_calls,
     _extract_usage,
@@ -13,7 +15,6 @@ from agentmeter.adapters.openai import (
 )
 from agentmeter.exporters.memory import MemoryExporter
 from agentmeter.tracker import configure, reset
-
 
 # --- Mock OpenAI objects (match real SDK's attribute shapes) ---
 
@@ -184,10 +185,8 @@ class TestTrackOpenAI:
         )
         client = track_openai(mock_client)
 
-        try:
+        with pytest.raises(RuntimeError):
             client.chat.completions.create(model="gpt-4o", messages=[])
-        except RuntimeError:
-            pass
 
         assert len(self.mem.events) == 1
         event = self.mem.events[0]

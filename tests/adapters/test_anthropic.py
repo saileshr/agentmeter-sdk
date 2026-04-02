@@ -3,6 +3,8 @@
 from dataclasses import dataclass, field
 from typing import Any
 
+import pytest
+
 from agentmeter.adapters.anthropic import (
     _extract_tool_calls,
     _extract_usage,
@@ -10,7 +12,6 @@ from agentmeter.adapters.anthropic import (
 )
 from agentmeter.exporters.memory import MemoryExporter
 from agentmeter.tracker import configure, reset
-
 
 # --- Mock Anthropic objects ---
 
@@ -154,10 +155,8 @@ class TestTrackAnthropic:
         mock_client = MockAnthropicClient(messages=FailingMessages())
         client = track_anthropic(mock_client)
 
-        try:
+        with pytest.raises(RuntimeError):
             client.messages.create(model="claude-sonnet-4-20250514", max_tokens=1024, messages=[])
-        except RuntimeError:
-            pass
 
         assert len(self.mem.events) == 1
         assert self.mem.events[0].error == "API error"

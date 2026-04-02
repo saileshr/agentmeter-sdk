@@ -2,8 +2,10 @@
 
 import json
 import logging
-from http.server import HTTPServer, BaseHTTPRequestHandler
+from http.server import BaseHTTPRequestHandler, HTTPServer
 from threading import Thread
+
+import pytest
 
 from agentmeter.cost import CostRegistry, ModelPricing, _normalize_model
 from agentmeter.types import CostBreakdown, TokenUsage
@@ -215,11 +217,8 @@ class TestUpdateFromUrl:
 
     def test_bad_url_raises(self):
         registry = CostRegistry()
-        try:
+        with pytest.raises((OSError, ConnectionError)):
             registry.update_from_url("http://127.0.0.1:1/nonexistent", timeout=1.0)
-            assert False, "Should have raised"
-        except (OSError, ConnectionError):
-            pass
 
 
 class TestImportLitellmFormat:

@@ -2,6 +2,8 @@
 
 import json
 
+import pytest
+
 from agentmeter.types import CostBreakdown, LLMEvent, Outcome, TokenUsage
 
 
@@ -19,11 +21,8 @@ class TestTokenUsage:
 
     def test_frozen(self):
         t = TokenUsage(input_tokens=10)
-        try:
+        with pytest.raises(AttributeError):
             t.input_tokens = 20  # type: ignore[misc]
-            assert False, "Should have raised FrozenInstanceError"
-        except AttributeError:
-            pass
 
 
 class TestCostBreakdown:
@@ -37,11 +36,8 @@ class TestCostBreakdown:
 
     def test_frozen(self):
         c = CostBreakdown(input_cost_usd=0.01)
-        try:
+        with pytest.raises(AttributeError):
             c.input_cost_usd = 0.02  # type: ignore[misc]
-            assert False, "Should have raised FrozenInstanceError"
-        except AttributeError:
-            pass
 
 
 class TestLLMEvent:
@@ -116,8 +112,5 @@ class TestOutcome:
 
     def test_frozen(self):
         o = Outcome(outcome="test")
-        try:
+        with pytest.raises(AttributeError):
             o.outcome = "changed"  # type: ignore[misc]
-            assert False, "Should have raised FrozenInstanceError"
-        except AttributeError:
-            pass

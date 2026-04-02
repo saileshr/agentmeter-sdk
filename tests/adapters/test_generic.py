@@ -1,7 +1,6 @@
 """Tests for the generic adapter."""
 
 from agentmeter.adapters.generic import track_llm_call
-from agentmeter.config import AgentMeterConfig
 from agentmeter.exporters.memory import MemoryExporter
 from agentmeter.tracker import configure, reset
 
