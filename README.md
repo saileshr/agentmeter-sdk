@@ -29,6 +29,10 @@ We ran 10 identical tasks across 5 models. Here's what we found:
 
 > At 1,000 calls/day, choosing GPT-4o over GPT-4.1-nano costs an extra **$131/month** for the same tasks.
 
+<p align="center">
+  <img src="images/agentmeter-sdk-output.png" alt="AgentMeter cost comparison report" width="700">
+</p>
+
 AgentMeter is a lightweight Python SDK that tracks every LLM call, calculates the real cost, and connects it to business outcomes. Zero dependencies. Two lines of code. Works offline.
 
 ## Quickstart (60 seconds)
